@@ -1,4 +1,4 @@
-# REPO - GetandCleanPeerAssignment
+## README
 Date: Friday, May 22, 2015
 Author: Doug Evans
 
@@ -14,9 +14,11 @@ STUDY DESIGN - MORE BACKGROUND, at the end of this document.
 # INFO ABOUT THE SOURCE DATA 
  
 The input raw data is coming from:
+
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 Additional information on the raw data can be found at:
+
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
 Note that not all the files coming from the source zip file are needed for this project.
@@ -24,29 +26,43 @@ Specifically, the data files containing high resolution inertial data are not ne
 Details about the files thatr are used are documented below and in the run_analysis.R script.
 
 # INSTRUCTIONS FOR CLEANING AND ANALYSIS
-Here are the steps that were taken to get and clean the data (make it tidy)
+#Here are the steps that were taken to get and clean the data (make it tidy)
+
 STEP I    -  Copy and unzip the source files to the current working directory (local clone of the repository)
+
 STEP II   -  Read selected files from the local directory into data frames for processing (reference information)
+
 STEP III  -  Prepare column titles from features data by removing parenthesis and replacing dashes with underscores
+
 STEP IV   -  Read remaining selected files from local directory into data frames for processing (actual data)
+
 STEP V    -  Add subject identifiers and activity columns to the training and test datasets, tiding up column names
+
 STEP VI   -  Strip columns not containing 'mean' or 'std' in training and test datasets
+
 STEP VII  -  Merge the training and test datasets and make minor adjustments to column classes
 
-Here are the steps taken to create the second dataset/file and perform the analysis according the to project instructions
+
+#Here are the steps taken to create the second dataset/file and perform the analysis according the to project instructions
+
 STEP VIII -  Create a new empty data set, mirroring the structure of the data set in STEP VI
+
 STEP IX   -  Update the features column names to reflect that this data set contains computed mean of subsets of data
+
 STEP X    -  Populate the new dataset (subset 30 subjects x 6 activities), computing the mean of each column and subset
+
 STEP XI   -  Output the new dataset to a file
 
 Most of these steps are self explanatory, with the following information to consider.
 
-Details on STEPS I and II
+#Details on STEPS I and II
 There are 8 source files of needed data.
 
 There are two source data files that apply to both train and test datasets:
+
 "features.txt" - this is the measured data names of the training and test datasets (561 named meansurements)
-"activity_labels.txt" this activity names (6 total activities)
+
+"activity_labels.txt" these are the activity names (6 total activities)
 
 There are three files each that apply to train and test datasets. 30 subjects had data collected.
 The data from the 30 subjects is randomly divided between the two datasets, with 9 subjects going to
@@ -55,29 +71,36 @@ be used for machine training, and 30% of the subject data would then be used to 
 algorithm. For our purposes here, we are combining everything into one dataset, but preserving the
 identity information, including subject number and dataset type (train or test).
 
-The test dataset files all contain the same number of rows (2947) for each file link together
+#The test dataset files all contain the same number of rows (2947) for each file link together
+
 "test/X_test.txt"- The is the main 'test' dataset (2947 rows by 561 columns of numeric data)
+
 "test/y_test.txt" - This is the test activity labels (numbers 1 through 6), 2947 total rows
+
 "test/subject_test.txt" - This is a unique subject number (2,4,9,10,12,13,18,20,24)
 
-The train dataset files all contain the same number of rows (7352) for each file link together
+#The train dataset files all contain the same number of rows (7352) for each file link together
+
 "train/X_train.txt"- These is the test dataset (7352 rows by 561 columns of numeric data)
+
 "train/y_train.txt" - This is the test activity labels (numbers 1 through 6), 7352 total rows
+
 "train/subject_train.txt" - This is a unique subject number (1,3,5,6,7,8,11,14,15,16,17,19,21,22,23,25,26,27,28,29,30)
 
-Details on STEP V
+#Details on STEP V
 Besides creating (and preserving) the subject ID number and the dataset type (train and test) in new columns,
 a new column containing a composite of these was created (first column), called subid. This is a unique
 identifier that will eventually be used to subset the data for performing the mean calculations of the 
 second part of this project (STEPS VII through XI)
 
-Details on STEP XI
+#Details on STEP XI
 The output file is text, has 180 rows (comes from 30 subjects x 6 activities),
-and 82 columns. The file is named "mean_act.txt"
+and 83 columns. The file is named "mean_act.txt"
+
 This file can be read in as a table using the R command:
 test_read <- read.table("mean_act.txt", header = TRUE) 
 
-# STUDY DESIGN - MORE BACKGROUND
+#STUDY DESIGN - MORE BACKGROUND
 The following information is provide as background to the source data and is from the source file
 named "README.txt".
 
